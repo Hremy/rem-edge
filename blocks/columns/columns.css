@@ -1,14 +1,20 @@
+/* Columns Block Styles for Acerbis OEM */
+
 .columns > div {
   display: flex;
   flex-direction: column;
+  gap: 20px;
 }
 
 .columns img {
   width: 100%;
+  height: auto;
+  display: block;
 }
 
 .columns > div > div {
   order: 1;
+  flex: 1;
 }
 
 .columns > div > .columns-img-col {
@@ -17,17 +23,77 @@
 
 .columns > div > .columns-img-col img {
   display: block;
+  border-radius: 4px;
+  overflow: hidden;
 }
 
-@media (width >= 900px) {
+/* Text styling in columns */
+.columns h2,
+.columns h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  color: #333;
+}
+
+.columns p {
+  margin: 12px 0;
+  line-height: 1.6;
+  color: #666;
+}
+
+.columns a {
+  color: #007bff;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.2s ease;
+}
+
+.columns a:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
+
+/* Desktop layout */
+@media (min-width: 900px) {
   .columns > div {
     align-items: center;
-    flex-direction: unset;
-    gap: 24px;
+    flex-direction: row;
+    gap: 40px;
   }
 
   .columns > div > div {
     flex: 1;
     order: unset;
+  }
+
+  .columns-2-cols > div {
+    gap: 40px;
+  }
+
+  .columns-3-cols > div {
+    gap: 30px;
+  }
+}
+
+/* Tablet layout */
+@media (max-width: 900px) and (min-width: 600px) {
+  .columns > div {
+    gap: 24px;
+  }
+}
+
+/* Mobile layout */
+@media (max-width: 600px) {
+  .columns > div {
+    gap: 16px;
+  }
+
+  .columns h2,
+  .columns h3 {
+    font-size: 1.25rem;
+  }
+
+  .columns p {
+    font-size: 0.95rem;
   }
 }

@@ -78,10 +78,16 @@ body {
   font-family: var(--body-font-family);
   font-size: var(--body-font-size-m);
   line-height: 1.6;
+  min-height: 100vh;
+  flex-direction: column;
 }
 
 body.appear {
-  display: block;
+  display: flex;
+}
+
+main {
+  flex: 1;
 }
 
 header {

@@ -1,0 +1,23 @@
+.divider {
+  padding: 40px 24px;
+  background-color: #ffffff;
+}
+
+.divider-block {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.divider-line {
+  width: 100%;
+  max-width: 1200px;
+  height: 2px;
+  background: linear-gradient(to right, transparent, #e0e0e0, transparent);
+}
+
+@media (max-width: 768px) {
+  .divider {
+    padding: 32px 16px;
+  }
+}

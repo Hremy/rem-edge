@@ -1,20 +1,127 @@
 footer {
-  background-color: var(--light-color);
+  background-color: #000000;
+  color: #ffffff;
   font-size: var(--body-font-size-xs);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-footer .footer > div {
+footer .footer {
   margin: auto;
   max-width: 1200px;
-  padding: 40px 24px 24px;
+  padding: 56px 24px 0;
 }
 
 footer .footer p {
   margin: 0;
 }
 
+footer .footer-content {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  max-width: 100%;
+  margin: 0 0 40px 0;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+footer .footer-column {
+  display: flex;
+  flex-direction: column;
+}
+
+footer .footer-column ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+footer .footer-heading {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+footer .footer-links {
+  margin-top: 4px;
+}
+
+footer .footer-links > li {
+  margin-bottom: 6px;
+  line-height: 1.6;
+}
+
+footer .footer-links a,
+footer .footer-links li {
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+}
+
+footer .footer-links a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+footer .footer-meta {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 40px;
+  align-items: center;
+  padding: 32px 0;
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+footer .footer-meta p {
+  margin: 0;
+  line-height: 1.6;
+}
+
+footer .footer-meta-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+footer .footer-meta-right {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+}
+
+footer .footer-meta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 24px;
+  border-radius: 999px;
+  border: 1.5px solid #ffffff;
+  text-decoration: none;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  color: #ffffff;
+  background: transparent;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+footer .footer-meta-button:hover {
+  background-color: #ffffff;
+  color: #000000;
+  border-color: #ffffff;
+}
+
 @media (width >= 900px) {
   footer .footer > div {
-    padding: 40px 32px 24px;
+    padding: 56px 32px 32px;
+  }
+
+  footer .footer-content {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
