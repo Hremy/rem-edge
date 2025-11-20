@@ -59,12 +59,13 @@ export default function decorate(block) {
         galleryLink.href = imageUrl;
         galleryLink.classList.add('gallery-carousel-link');
         galleryLink.setAttribute('data-fancybox', 'gallery');
-        galleryLink.setAttribute('data-caption', caption);
+        // Don't show URL as caption - leave it empty
+        galleryLink.setAttribute('data-caption', '');
         
         // Create image
         const imgElement = document.createElement('img');
         imgElement.src = imageUrl;
-        imgElement.alt = caption;
+        imgElement.alt = '';
         imgElement.classList.add('gallery-carousel-image');
         
         galleryLink.append(imgElement);
