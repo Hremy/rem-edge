@@ -57,21 +57,21 @@ export default function decorate(block) {
         galleryLink.setAttribute('data-fancybox', 'gallery');
         galleryLink.setAttribute('data-caption', caption);
         
-        // Set background image
-        galleryLink.style.backgroundImage = `url('${imageUrl}')`;
-        galleryLink.style.backgroundSize = 'cover';
-        galleryLink.style.backgroundPosition = 'center';
-        galleryLink.style.backgroundRepeat = 'no-repeat';
-        
-        // Create placeholder image
+        // Create placeholder image - this will be the main display
         const placeholderImg = document.createElement('img');
         placeholderImg.src = imageUrl;
         placeholderImg.alt = caption;
         placeholderImg.classList.add('gallery-carousel-placeholder');
+        placeholderImg.style.width = '100%';
+        placeholderImg.style.height = '100%';
+        placeholderImg.style.objectFit = 'cover';
+        placeholderImg.style.display = 'block';
         
         galleryLink.append(placeholderImg);
         item.append(galleryLink);
         container.append(item);
+        
+        console.log('Gallery item added:', imageUrl);
       }
     }
   });
