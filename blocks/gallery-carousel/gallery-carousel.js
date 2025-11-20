@@ -2,13 +2,13 @@ export default function decorate(block) {
   // Gallery Carousel component: 4-column image grid with lightbox
   
   const rows = Array.from(block.querySelectorAll(':scope > div'));
-  console.log('Gallery carousel - Total rows:', rows.length);
+  console.warn('🎯 GALLERY CAROUSEL DEBUG - Total rows:', rows.length);
   
   // Log all rows for debugging
   rows.forEach((row, idx) => {
     const cells = Array.from(row.querySelectorAll(':scope > div'));
     const cellTexts = cells.map(cell => cell.textContent.trim().substring(0, 50)).join(' | ');
-    console.log(`Row ${idx}: ${cellTexts}`);
+    console.warn(`🎯 Row ${idx}: ${cellTexts}`);
   });
   
   const container = document.createElement('div');
