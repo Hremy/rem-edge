@@ -126,6 +126,24 @@ async function loadLazy(doc) {
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
+  
+  // Load Fancybox for lightbox functionality
+  loadCSS('https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox.css');
+  const fancyboxScript = document.createElement('script');
+  fancyboxScript.src = 'https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0/dist/fancybox.umd.js';
+  fancyboxScript.async = true;
+  fancyboxScript.onload = () => {
+    if (window.Fancybox) {
+      window.Fancybox.bind('[data-fancybox]', {
+        on: {
+          reveal: (fancybox, slide) => {
+            // Optional: add custom behavior
+          }
+        }
+      });
+    }
+  };
+  document.head.append(fancyboxScript);
 }
 
 /**
