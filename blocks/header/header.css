@@ -52,8 +52,9 @@ header nav[aria-expanded='true'] {
     display: flex;
     justify-content: space-between;
     gap: 0 32px;
-    max-width: 1264px;
+    max-width: 100%;
     padding: 0 32px;
+    width: 100%;
   }
 
   header nav[aria-expanded='true'] {
@@ -378,7 +379,7 @@ header nav .nav-tools {
   justify-content: flex-end;
   gap: 12px;
   font-size: var(--body-font-size-xs);
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   min-width: 0;
 }
 

@@ -3,16 +3,13 @@ export default function decorate(block) {
   
   const rows = Array.from(block.querySelectorAll(':scope > div'));
   
-  const wrapper = document.createElement('div');
-  wrapper.classList.add('banner-wrapper');
-  
   // First row: background image
   const firstRow = rows[0];
   const bgCell = firstRow.querySelector(':scope > div');
   const bgImg = bgCell?.querySelector('img');
   
   if (bgImg) {
-    wrapper.style.backgroundImage = `url('${bgImg.src}')`;
+    block.style.backgroundImage = `url('${bgImg.src}')`;
   }
   
   // Content rows
@@ -51,8 +48,6 @@ export default function decorate(block) {
     });
   });
   
-  wrapper.append(content);
-  
   block.textContent = '';
-  block.append(wrapper);
+  block.append(content);
 }
