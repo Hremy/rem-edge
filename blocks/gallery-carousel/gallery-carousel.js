@@ -29,11 +29,21 @@ export default function decorate(block) {
       const secondCell = cells[1];
       
       // Check first cell for image
-      const img = firstCell.querySelector('img');
+      let img = firstCell.querySelector('img');
       if (img) {
         imageUrl = img.src;
         caption = img.alt || '';
         console.log(`Row ${idx + 1} - Found image in first cell:`, imageUrl);
+      }
+      
+      // Check second cell for image (pasted images)
+      if (!imageUrl && secondCell) {
+        img = secondCell.querySelector('img');
+        if (img) {
+          imageUrl = img.src;
+          caption = img.alt || '';
+          console.log(`Row ${idx + 1} - Found image in second cell:`, imageUrl);
+        }
       }
       
       // Check second cell for link (URL)
