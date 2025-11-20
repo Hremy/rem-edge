@@ -129,6 +129,24 @@ async function loadLazy(doc) {
   
   // Load Fancybox for lightbox functionality
   loadCSS('https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.css');
+  
+  // Add custom Fancybox styling for yellow accent color
+  const fancyboxStyle = document.createElement('style');
+  fancyboxStyle.textContent = `
+    .fancybox__thumb.is-selected {
+      border-color: #ffeb00 !important;
+    }
+    .fancybox__button--slideshow:hover,
+    .fancybox__button--fullscreen:hover,
+    .fancybox__button--thumbs:hover {
+      color: #ffeb00 !important;
+    }
+    .fancybox__button.is-selected {
+      color: #ffeb00 !important;
+    }
+  `;
+  document.head.append(fancyboxStyle);
+  
   const fancyboxScript = document.createElement('script');
   fancyboxScript.src = 'https://cdn.jsdelivr.net/npm/@fancyapps/ui@4.0/dist/fancybox.umd.js';
   fancyboxScript.async = true;
