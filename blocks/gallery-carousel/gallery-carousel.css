@@ -1,20 +1,17 @@
 .gallery-carousel {
   background-color: #ffffff;
-  padding: 80px 24px;
+  padding: 60px 24px;
   width: 100%;
   box-sizing: border-box;
-}
-
-.gallery-carousel-wrapper {
-  max-width: 1400px;
-  margin: 0 auto;
 }
 
 .gallery-carousel-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 30px;
+  gap: 24px;
   width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .gallery-carousel-item {
@@ -22,58 +19,36 @@
   width: 100%;
   aspect-ratio: 1 / 1;
   overflow: hidden;
-  border-radius: 12px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-  transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  border: 3px solid #f0f0f0;
+  border: 2px solid #000000;
+  transition: all 0.3s ease;
+  background-color: #ffffff;
 }
 
 .gallery-carousel-item:hover {
-  transform: translateY(-12px) scale(1.02);
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
-  border-color: #ffeb00;
+  transform: scale(1.02);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
 .gallery-carousel-link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  display: block;
   width: 100%;
   height: 100%;
   position: relative;
   overflow: hidden;
   cursor: pointer;
   text-decoration: none;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
 }
 
-.gallery-carousel-link::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, 0);
-  transition: background-color 0.3s ease;
-  z-index: 2;
-}
-
-.gallery-carousel-link:hover::before {
-  background-color: rgba(0, 0, 0, 0.2);
-}
-
-.gallery-carousel-placeholder {
+.gallery-carousel-image {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   display: block;
-  transition: transform 0.4s ease;
+  background-color: #ffffff;
+  transition: transform 0.3s ease;
 }
 
-.gallery-carousel-link:hover .gallery-carousel-placeholder {
+.gallery-carousel-link:hover .gallery-carousel-image {
   transform: scale(1.05);
 }
 

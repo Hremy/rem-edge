@@ -1,20 +1,16 @@
 export default function decorate(block) {
-  // Gallery Carousel component: image grid with lightbox
+  // Gallery Carousel component: 4-column image grid with lightbox
   
   const rows = Array.from(block.querySelectorAll(':scope > div'));
-  
-  const wrapper = document.createElement('div');
-  wrapper.classList.add('gallery-carousel-wrapper');
   
   const container = document.createElement('div');
   container.classList.add('gallery-carousel-container');
   
   // Process each row as a gallery item (skip first row which is the block name)
-  rows.slice(1).forEach((row, idx) => {
+  rows.slice(1).forEach((row) => {
     const cells = Array.from(row.querySelectorAll(':scope > div'));
     
     if (cells.length >= 1) {
-      // Try to get image from first cell or link from second cell
       let imageUrl = null;
       let caption = '';
       
@@ -34,11 +30,10 @@ export default function decorate(block) {
         imageUrl = link.href;
         caption = link.textContent || '';
       } else if (link && imageUrl) {
-        // If we have both, use the link as the full-size image
         imageUrl = link.href;
       }
       
-      // Also check for text content in second cell
+      // Check for text content in second cell
       if (!imageUrl && secondCell) {
         const text = secondCell.textContent.trim();
         if (text.startsWith('http')) {
@@ -57,29 +52,21 @@ export default function decorate(block) {
         galleryLink.setAttribute('data-fancybox', 'gallery');
         galleryLink.setAttribute('data-caption', caption);
         
-        // Create placeholder image - this will be the main display
-        const placeholderImg = document.createElement('img');
-        placeholderImg.src = imageUrl;
-        placeholderImg.alt = caption;
-        placeholderImg.classList.add('gallery-carousel-placeholder');
-        placeholderImg.style.width = '100%';
-        placeholderImg.style.height = '100%';
-        placeholderImg.style.objectFit = 'cover';
-        placeholderImg.style.display = 'block';
+        // Create image
+        const imgElement = document.createElement('img');
+        imgElement.src = imageUrl;
+        imgElement.alt = caption;
+        imgElement.classList.add('gallery-carousel-image');
         
-        galleryLink.append(placeholderImg);
+        galleryLink.append(imgElement);
         item.append(galleryLink);
         container.append(item);
-        
-        console.log('Gallery item added:', imageUrl);
       }
     }
   });
   
-  wrapper.append(container);
-  
   block.textContent = '';
-  block.append(wrapper);
+  block.append(container);
   
   // Load Fancybox if available
   if (window.Fancybox) {
