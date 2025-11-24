@@ -1,0 +1,217 @@
+.locations-cards {
+  background-color: #ffffff;
+  padding: 60px 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.locations-cards-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 24px;
+}
+
+/* Location Card */
+.location-card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.location-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.15);
+}
+
+/* Image Container */
+.location-card-image {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background-color: #f5f5f5;
+}
+
+.location-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.3s ease;
+}
+
+.location-card:hover .location-card-image img {
+  transform: scale(1.05);
+}
+
+/* Content Container (Black Background) */
+.location-card-content {
+  background-color: #000000;
+  color: #ffffff;
+  padding: 20px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Title */
+.location-card-title {
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #ffeb00;
+  margin: 0 0 12px 0;
+  line-height: 1.3;
+}
+
+/* Address */
+.location-card-address {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0;
+  line-height: 1.4;
+}
+
+/* Triangle Accent */
+.location-card-triangle {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 0;
+  height: 0;
+  border-left: 40px solid transparent;
+  border-top: 40px solid transparent;
+  border-right: 40px solid #ffeb00;
+  border-bottom: 40px solid #ffeb00;
+  opacity: 0.8;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+  .locations-cards-wrapper {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .locations-cards-wrapper {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .location-card-title {
+    font-size: 0.9rem;
+  }
+
+  .location-card-address {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .locations-cards {
+    padding: 40px 16px;
+  }
+
+  .locations-cards-wrapper {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+  }
+
+  .location-card-image {
+    aspect-ratio: 16 / 9;
+  }
+
+  .location-card-content {
+    padding: 16px;
+  }
+
+  .location-card-title {
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+  }
+
+  .location-card-address {
+    font-size: 0.75rem;
+  }
+
+  .location-card-triangle {
+    border-left: 30px solid transparent;
+    border-top: 30px solid transparent;
+    border-right: 30px solid #ffeb00;
+    border-bottom: 30px solid #ffeb00;
+  }
+}
+
+@media (max-width: 480px) {
+  .locations-cards {
+    padding: 24px 12px;
+  }
+
+  .locations-cards-wrapper {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .location-card-image {
+    aspect-ratio: 16 / 9;
+  }
+
+  .location-card-content {
+    padding: 12px;
+  }
+
+  .location-card-title {
+    font-size: 0.8rem;
+    margin-bottom: 6px;
+  }
+
+  .location-card-address {
+    font-size: 0.7rem;
+  }
+
+  .location-card-triangle {
+    border-left: 20px solid transparent;
+    border-top: 20px solid transparent;
+    border-right: 20px solid #ffeb00;
+    border-bottom: 20px solid #ffeb00;
+  }
+
+  .location-card:hover {
+    transform: translateY(-4px);
+  }
+}
+
+/* Animation */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.location-card {
+  animation: fadeInUp 0.6s ease-out;
+}
+
+.location-card:nth-child(1) { animation-delay: 0.1s; }
+.location-card:nth-child(2) { animation-delay: 0.2s; }
+.location-card:nth-child(3) { animation-delay: 0.3s; }
+.location-card:nth-child(4) { animation-delay: 0.4s; }
+.location-card:nth-child(5) { animation-delay: 0.5s; }
+.location-card:nth-child(6) { animation-delay: 0.6s; }
+.location-card:nth-child(7) { animation-delay: 0.7s; }
+.location-card:nth-child(8) { animation-delay: 0.8s; }

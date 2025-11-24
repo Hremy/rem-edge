@@ -1,0 +1,180 @@
+.about-section {
+  background-color: #ffffff;
+  padding: 60px 24px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.about-section-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Intro Section: Two-column layout */
+.about-section-intro {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 60px;
+  align-items: center;
+  margin-bottom: 80px;
+  padding: 60px 0;
+}
+
+.about-section-image {
+  width: 100%;
+  height: auto;
+}
+
+.about-section-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.about-section-content {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #333333;
+}
+
+.about-section-content p {
+  margin: 0 0 20px 0;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #333333;
+}
+
+.about-section-content p:last-child {
+  margin-bottom: 0;
+}
+
+.about-section-content strong {
+  font-weight: 700;
+  color: #000000;
+}
+
+/* Video Section */
+.about-section-video {
+  margin: 80px 0;
+  text-align: center;
+}
+
+.about-section-video a,
+.about-section-video iframe {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.about-section-video img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Stats Grid */
+.about-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 40px;
+  padding: 60px 0;
+}
+
+.about-stat-item {
+  text-align: center;
+  padding: 20px;
+}
+
+.about-stat-number {
+  font-size: 3.5rem;
+  font-weight: 900;
+  margin: 0 0 12px 0;
+  color: #000000;
+  line-height: 1;
+}
+
+.about-stat-label {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #ffeb00;
+  background-color: #ffeb00;
+  color: #000000;
+  padding: 4px 12px;
+  display: inline-block;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .about-section-intro {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .about-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .about-section {
+    padding: 40px 16px;
+  }
+
+  .about-section-intro {
+    padding: 40px 0;
+    margin-bottom: 60px;
+  }
+
+  .about-section-content {
+    font-size: 0.95rem;
+  }
+
+  .about-section-video {
+    margin: 60px 0;
+  }
+
+  .about-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    padding: 40px 0;
+  }
+
+  .about-stat-number {
+    font-size: 2.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-section {
+    padding: 24px 12px;
+  }
+
+  .about-section-intro {
+    padding: 24px 0;
+    margin-bottom: 40px;
+  }
+
+  .about-section-content {
+    font-size: 0.9rem;
+  }
+
+  .about-stats-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+    padding: 24px 0;
+  }
+
+  .about-stat-number {
+    font-size: 2rem;
+  }
+
+  .about-stat-label {
+    font-size: 0.75rem;
+    padding: 3px 8px;
+  }
+}
