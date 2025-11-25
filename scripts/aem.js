@@ -622,10 +622,22 @@ async function loadHeader(header) {
  * @returns {Promise}
  */
 async function loadFooter(footer) {
-  const footerBlock = buildBlock('footer', '');
-  footer.append(footerBlock);
-  decorateBlock(footerBlock);
-  return loadBlock(footerBlock);
+  const footerPath = `${window.hlx.codeBasePath}/footer`;
+  try {
+    const resp = await fetch(`${footerPath}.plain.html`);
+    if (!resp.ok) {
+      console.error('Failed to load footer fragment');
+      return null;
+    }
+    const html = await resp.text();
+    const footerBlock = buildBlock('footer', html);
+    footer.append(footerBlock);
+    decorateBlock(footerBlock);
+    return loadBlock(footerBlock);
+  } catch (error) {
+    console.error('Error loading footer:', error);
+    return null;
+  }
 }
 
 /**
