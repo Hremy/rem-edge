@@ -96,9 +96,9 @@ export default async function decorate(block) {
   const hdrSopra = document.createElement('div');
   hdrSopra.classList.add('hdr-sopra', 'clearfix');
 
-  // Language selector
+  // Language selector (LEFT side)
   const langSelector = document.createElement('div');
-  langSelector.classList.add('box-icl_language_selector', 'float-right');
+  langSelector.classList.add('box-icl_language_selector', 'float-left');
   langSelector.innerHTML = `
     <div class="wpml-ls wpml-ls-legacy-dropdown-click">
       <ul role="menu">
@@ -118,7 +118,7 @@ export default async function decorate(block) {
     </div>
   `;
 
-  // Buttons
+  // Buttons (RIGHT side)
   const contactsBtn = document.createElement('a');
   contactsBtn.href = 'https://www.acerbis.com/it/contatti';
   contactsBtn.target = '_blank';
@@ -131,9 +131,10 @@ export default async function decorate(block) {
   acerbisWorldBtn.classList.add('button', 'float-right');
   acerbisWorldBtn.textContent = 'Acerbis World';
 
-  hdrSopra.append(contactsBtn);
-  hdrSopra.append(acerbisWorldBtn);
+  // Append in new order: Language selector first (left), then buttons (right)
   hdrSopra.append(langSelector);
+  hdrSopra.append(acerbisWorldBtn);
+  hdrSopra.append(contactsBtn);
 
   navCol.append(hdrSopra);
 
