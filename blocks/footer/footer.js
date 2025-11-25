@@ -1,6 +1,9 @@
 export default function decorate(block) {
-  // Parse footer data from the block
+  // Parse footer data from the table
   const rows = block.querySelectorAll('tr');
+  
+  // Skip first row (block name)
+  if (rows.length < 2) return;
   
   // Build footer structure
   const footer = document.createElement('div');
@@ -10,55 +13,57 @@ export default function decorate(block) {
   const mainContent = document.createElement('div');
   mainContent.className = 'footer-main';
   
+  // Parse main content row (second row)
+  const mainRow = rows[1];
+  const mainCells = mainRow.querySelectorAll('td');
+  
   // Column 1: Logo and description
   const col1 = document.createElement('div');
   col1.className = 'footer-col footer-col-1';
-  col1.innerHTML = `
-    <div class="footer-logo mb-4">
-      <a href="https://www.acerbisoem.com/" class="inline-block max-w-full">
-        <img src="https://www.acerbisoem.com/wp-content/uploads/2024/04/logo-acerbis-white.svg" alt="Acerbis Logo" class="w-full">
-      </a>
-    </div>
-    <div class="footer-description">
-      <p>Dalla progettazione all'industrializzazione del prodotto, dal co-design alla ricerca di nuovi materiali e alla prototipazione.</p>
-    </div>
-  `;
+  if (mainCells[0]) {
+    const logoDiv = mainCells[0].querySelector('.footer-logo');
+    const description = mainCells[0].querySelector('p');
+    
+    col1.innerHTML = '';
+    if (logoDiv) col1.appendChild(logoDiv.cloneNode(true));
+    if (description) col1.appendChild(description.cloneNode(true));
+  }
   
   // Column 2: Sectors
   const col2 = document.createElement('div');
   col2.className = 'footer-col footer-col-2';
-  col2.innerHTML = `
-    <h6 class="footer-title">Settori</h6>
-    <ul class="footer-links">
-      <li><a href="https://www.acerbisoem.com/settori/motorcycle/">Motorcycle</a></li>
-      <li><a href="https://www.acerbisoem.com/settori/agricoltura/">Agricoltura</a></li>
-      <li><a href="https://www.acerbisoem.com/settori/movimento-terra/">Movimento terra</a></li>
-      <li><a href="https://www.acerbisoem.com/settori/material-handling/">Material handling</a></li>
-      <li><a href="https://www.acerbisoem.com/settori/altri-settori/">Altri settori</a></li>
-    </ul>
-  `;
+  if (mainCells[1]) {
+    const title = mainCells[1].querySelector('h6');
+    const links = mainCells[1].querySelector('ul');
+    
+    col2.innerHTML = '';
+    if (title) col2.appendChild(title.cloneNode(true));
+    if (links) col2.appendChild(links.cloneNode(true));
+  }
   
   // Column 3: Technologies
   const col3 = document.createElement('div');
   col3.className = 'footer-col footer-col-3';
-  col3.innerHTML = `
-    <h6 class="footer-title">Tecnologie</h6>
-    <ul class="footer-links">
-      <li><a href="https://www.acerbisoem.com/tecnologie/roto-molding/">Stampaggio rotazionale</a></li>
-      <li><a href="https://www.acerbisoem.com/tecnologie/injection-molding/">Stampaggio a iniezione</a></li>
-    </ul>
-  `;
+  if (mainCells[2]) {
+    const title = mainCells[2].querySelector('h6');
+    const links = mainCells[2].querySelector('ul');
+    
+    col3.innerHTML = '';
+    if (title) col3.appendChild(title.cloneNode(true));
+    if (links) col3.appendChild(links.cloneNode(true));
+  }
   
   // Column 4: Engineering
   const col4 = document.createElement('div');
   col4.className = 'footer-col footer-col-4';
-  col4.innerHTML = `
-    <h6 class="footer-title">Engineering</h6>
-    <ul class="footer-links">
-      <li><a href="https://www.acerbisoem.com/engineering/projecy-management/">Project Management</a></li>
-      <li><a href="https://www.acerbisoem.com/engineering/engineering-capability/">Engineering Capability</a></li>
-    </ul>
-  `;
+  if (mainCells[3]) {
+    const title = mainCells[3].querySelector('h6');
+    const links = mainCells[3].querySelector('ul');
+    
+    col4.innerHTML = '';
+    if (title) col4.appendChild(title.cloneNode(true));
+    if (links) col4.appendChild(links.cloneNode(true));
+  }
   
   mainContent.appendChild(col1);
   mainContent.appendChild(col2);
@@ -68,20 +73,31 @@ export default function decorate(block) {
   // Create footer bottom
   const footerBottom = document.createElement('div');
   footerBottom.className = 'footer-bottom';
-  footerBottom.innerHTML = `
-    <div class="footer-left">
-      <p>© 2024 <strong>ACERBIS ITALIA SPA</strong><br>
-      Società soggetta all'attività di direzione e coordinamento di Yellow Holding S.r.l.<br>
-      P.IVA 00862020161 | 
-      <a href="https://www.acerbis.com/it/privacy-policy" target="_blank" rel="noopener">Privacy</a> &amp; 
-      <a href="https://www.acerbis.com/it/cookie-policy" target="_blank" rel="noopener">Cookie Policy</a> | 
-      <a href="https://www.d-com.it/" target="_blank" rel="noopener">Web agency</a></p>
-    </div>
-    <div class="footer-right">
-      <a class="footer-button" href="https://www.acerbis.com/it/contatti" target="_blank">Contatti</a>
-      <a class="footer-button" href="https://www.acerbis.com/it" target="_blank">Mondo Acerbis</a>
-    </div>
-  `;
+  
+  // Parse footer bottom row (third row)
+  if (rows.length > 2) {
+    const bottomRow = rows[2];
+    const bottomCells = bottomRow.querySelectorAll('td');
+    
+    // Left side: Copyright
+    const footerLeft = document.createElement('div');
+    footerLeft.className = 'footer-left';
+    if (bottomCells[0]) {
+      const copyright = bottomCells[0].querySelector('p');
+      if (copyright) footerLeft.appendChild(copyright.cloneNode(true));
+    }
+    
+    // Right side: Buttons
+    const footerRight = document.createElement('div');
+    footerRight.className = 'footer-right';
+    if (bottomCells[3]) {
+      const buttons = bottomCells[3].querySelector('.footer-buttons');
+      if (buttons) footerRight.appendChild(buttons.cloneNode(true));
+    }
+    
+    footerBottom.appendChild(footerLeft);
+    footerBottom.appendChild(footerRight);
+  }
   
   // Clear block and append new content
   block.innerHTML = '';
