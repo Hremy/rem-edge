@@ -37,6 +37,7 @@ export default async function decorate(block) {
   }
 
   const topLis = Array.from(ul.querySelectorAll(':scope > li'));
+  console.log('Footer: Found top-level items:', topLis.length, topLis.map(li => li.textContent.trim().substring(0, 30)));
   
   if (!topLis.length) {
     block.append(content);
