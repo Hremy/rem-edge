@@ -37,3 +37,20 @@ main .library-metadata {
   background: transparent !important;
   box-shadow: none !important;
 }
+
+.sustainability {
+    text-align: center;
+
+    a.button {
+        background-color: black;
+    }
+
+    h4 {
+        text-transform: uppercase;
+        font-weight: 900;
+        font-size: 30px;
+        line-height: 30px;
+        letter-spacing: 0;
+        color: #000000;
+    }
+}
