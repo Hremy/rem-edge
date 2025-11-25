@@ -1,107 +1,131 @@
-export default function decorate(block) {
-  // Parse footer data from the table
-  const rows = block.querySelectorAll('tr');
-  
-  // Skip first row (block name)
-  if (rows.length < 2) return;
-  
-  // Build footer structure
-  const footer = document.createElement('div');
-  footer.className = 'footer-container';
-  
-  // Create main footer content
-  const mainContent = document.createElement('div');
-  mainContent.className = 'footer-main';
-  
-  // Parse main content row (second row)
-  const mainRow = rows[1];
-  const mainCells = mainRow.querySelectorAll('td');
-  
-  // Column 1: Logo and description
-  const col1 = document.createElement('div');
-  col1.className = 'footer-col footer-col-1';
-  if (mainCells[0]) {
-    const logoDiv = mainCells[0].querySelector('.footer-logo');
-    const description = mainCells[0].querySelector('p');
-    
-    col1.innerHTML = '';
-    if (logoDiv) col1.appendChild(logoDiv.cloneNode(true));
-    if (description) col1.appendChild(description.cloneNode(true));
+import { getMetadata } from '../../scripts/aem.js';
+import { loadFragment } from '../fragment/fragment.js';
+
+/**
+ * loads and decorates the footer
+ * @param {Element} block The footer block element
+ */
+export default async function decorate(block) {
+  // load footer as fragment
+  const footerMeta = getMetadata('footer');
+  const footerPath = footerMeta ? new URL(footerMeta, window.location).pathname : '/footer';
+  const fragment = await loadFragment(footerPath);
+
+  // clear original content
+  block.textContent = '';
+
+  const content = document.createElement('div');
+  content.classList.add('footer-content');
+
+  const meta = document.createElement('div');
+  meta.classList.add('footer-meta');
+
+  if (!fragment) {
+    block.append(content);
+    block.append(meta);
+    return;
   }
+
+  const ul = fragment.querySelector('ul');
   
-  // Column 2: Sectors
-  const col2 = document.createElement('div');
-  col2.className = 'footer-col footer-col-2';
-  if (mainCells[1]) {
-    const title = mainCells[1].querySelector('h6');
-    const links = mainCells[1].querySelector('ul');
-    
-    col2.innerHTML = '';
-    if (title) col2.appendChild(title.cloneNode(true));
-    if (links) col2.appendChild(links.cloneNode(true));
+  if (!ul) {
+    // fallback: just append fragment as-is
+    while (fragment.firstElementChild) block.append(fragment.firstElementChild);
+    block.append(content);
+    block.append(meta);
+    return;
   }
+
+  const topLis = Array.from(ul.querySelectorAll(':scope > li'));
   
-  // Column 3: Technologies
-  const col3 = document.createElement('div');
-  col3.className = 'footer-col footer-col-3';
-  if (mainCells[2]) {
-    const title = mainCells[2].querySelector('h6');
-    const links = mainCells[2].querySelector('ul');
-    
-    col3.innerHTML = '';
-    if (title) col3.appendChild(title.cloneNode(true));
-    if (links) col3.appendChild(links.cloneNode(true));
+  if (!topLis.length) {
+    block.append(content);
+    block.append(meta);
+    return;
   }
-  
-  // Column 4: Engineering
-  const col4 = document.createElement('div');
-  col4.className = 'footer-col footer-col-4';
-  if (mainCells[3]) {
-    const title = mainCells[3].querySelector('h6');
-    const links = mainCells[3].querySelector('ul');
+
+  // First 4 top-level items => columns
+  const columnItems = topLis.slice(0, 4);
+  const metaItems = topLis.slice(4);
+
+  columnItems.forEach((item, idx) => {
+    const column = document.createElement('div');
+    column.classList.add('footer-column');
+
+    const colUl = document.createElement('ul');
+
+    // Heading (own text only)
+    const headingLi = document.createElement('li');
+    headingLi.classList.add('footer-heading');
+
+    const ownTextNode = Array.from(item.childNodes)
+      .find((n) => n.nodeType === Node.TEXT_NODE);
+    headingLi.textContent = (ownTextNode ? ownTextNode.textContent : '').trim();
     
-    col4.innerHTML = '';
-    if (title) col4.appendChild(title.cloneNode(true));
-    if (links) col4.appendChild(links.cloneNode(true));
-  }
-  
-  mainContent.appendChild(col1);
-  mainContent.appendChild(col2);
-  mainContent.appendChild(col3);
-  mainContent.appendChild(col4);
-  
-  // Create footer bottom
-  const footerBottom = document.createElement('div');
-  footerBottom.className = 'footer-bottom';
-  
-  // Parse footer bottom row (third row)
-  if (rows.length > 2) {
-    const bottomRow = rows[2];
-    const bottomCells = bottomRow.querySelectorAll('td');
-    
-    // Left side: Copyright
-    const footerLeft = document.createElement('div');
-    footerLeft.className = 'footer-left';
-    if (bottomCells[0]) {
-      const copyright = bottomCells[0].querySelector('p');
-      if (copyright) footerLeft.appendChild(copyright.cloneNode(true));
+    colUl.append(headingLi);
+
+    // Links (children of nested <ul>, if any)
+    const nested = item.querySelector(':scope > ul');
+    if (nested) {
+      const linksUl = document.createElement('ul');
+      linksUl.classList.add('footer-links');
+
+      nested.querySelectorAll(':scope > li').forEach((li) => {
+        const linkLi = document.createElement('li');
+        linkLi.textContent = li.textContent.trim();
+        linksUl.append(linkLi);
+      });
+
+      if (linksUl.childElementCount) headingLi.append(linksUl);
     }
-    
-    // Right side: Buttons
-    const footerRight = document.createElement('div');
-    footerRight.className = 'footer-right';
-    if (bottomCells[3]) {
-      const buttons = bottomCells[3].querySelector('.footer-buttons');
-      if (buttons) footerRight.appendChild(buttons.cloneNode(true));
+
+    column.append(colUl);
+    content.append(column);
+  });
+
+  // Meta row from remaining items
+  const metaLeft = document.createElement('div');
+  metaLeft.classList.add('footer-meta-left');
+
+  const metaRight = document.createElement('div');
+  metaRight.classList.add('footer-meta-right');
+
+  const isButtonLabel = (label) => {
+    const t = label.toLowerCase();
+    return t.includes('contact') || t.includes('mondo acerbis') || t.includes('acerbis world');
+  };
+
+  metaItems.forEach((item) => {
+    const rawText = item.textContent.trim();
+    if (!rawText) return;
+
+    // Normalise whitespace
+    const text = rawText.replace(/\s+/g, ' ');
+
+    if (isButtonLabel(text)) {
+      const link = document.createElement('a');
+      link.classList.add('footer-meta-button');
+      link.textContent = text;
+
+      // Use real URLs for the buttons
+      if (/contact/i.test(text)) {
+        link.href = 'https://www.acerbis.com/it/contatti';
+      } else {
+        // Acerbis World / Mondo Acerbis
+        link.href = 'https://www.acerbis.com/it';
+      }
+
+      metaRight.append(link);
+    } else {
+      const p = document.createElement('p');
+      p.textContent = text;
+      metaLeft.append(p);
     }
-    
-    footerBottom.appendChild(footerLeft);
-    footerBottom.appendChild(footerRight);
-  }
+  });
   
-  // Clear block and append new content
-  block.innerHTML = '';
-  footer.appendChild(mainContent);
-  footer.appendChild(footerBottom);
-  block.appendChild(footer);
+  meta.append(metaLeft);
+  if (metaRight.childElementCount) meta.append(metaRight);
+  
+  block.append(content);
+  if (meta.childElementCount) block.append(meta);
 }

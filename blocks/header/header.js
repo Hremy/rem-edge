@@ -1,4 +1,5 @@
 import { getMetadata } from '../../scripts/aem.js';
+import { loadFragment } from '../fragment/fragment.js';
 
 // Media query for responsive behavior
 const isDesktop = window.matchMedia('(min-width: 992px)');
@@ -154,42 +155,29 @@ export default async function decorate(block) {
 
   navbar.append(toggler);
 
-  // Parse navigation from block content (table)
-  const table = block.querySelector('table');
-  if (!table) return;
-
-  // Extract navigation items from table
+  // Extract navigation items from fragment
   const labels = [];
-  const rows = table.querySelectorAll('tr');
-  
-  // Skip first row (header row)
-  for (let i = 1; i < rows.length; i++) {
-    const row = rows[i];
-    const cells = row.querySelectorAll('td');
-    if (cells.length > 0) {
-      const cell = cells[0];
-      const ul = cell.querySelector('ul');
-      if (ul) {
-        ul.querySelectorAll('li').forEach((li) => {
-          const a = li.querySelector('a');
-          let text = '';
-          let url = '';
+  if (fragment) {
+    const allLis = Array.from(fragment.querySelectorAll('li'));
 
-          if (a) {
-            text = a.textContent.trim();
-            url = a.href;
-          } else {
-            const ownTextNode = Array.from(li.childNodes)
-              .find((n) => n.nodeType === Node.TEXT_NODE);
-            text = (ownTextNode ? ownTextNode.textContent : '').trim();
-          }
+    allLis.forEach((li) => {
+      const link = li.querySelector(':scope > a');
+      let text = '';
+      let url = '';
 
-          if (text && !labels.find((l) => l.text === text)) {
-            labels.push({ text, url });
-          }
-        });
+      if (link) {
+        text = link.textContent.trim();
+        url = link.href;
+      } else {
+        const ownTextNode = Array.from(li.childNodes)
+          .find((n) => n.nodeType === Node.TEXT_NODE);
+        text = (ownTextNode ? ownTextNode.textContent : '').trim();
       }
-    }
+
+      if (text && !labels.find((l) => l.text === text)) {
+        labels.push({ text, url });
+      }
+    });
   }
 
   // Build navigation structure
