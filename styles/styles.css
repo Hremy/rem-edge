@@ -261,3 +261,10 @@ main .section.highlight {
   margin: 0;
   padding: 40px 0;
 }
+
+main .section {
+    .default-content-wrapper {
+        width: 70%;
+        font-size: 16px;
+    }
+}
