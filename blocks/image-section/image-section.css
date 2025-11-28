@@ -1,0 +1,74 @@
+/* Image Section Block */
+
+.image-section {
+  padding: 3rem 0; /* py-5 equivalent */
+}
+
+.image-section-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: calc(-1.5rem / 2);
+  margin-left: calc(-1.5rem / 2);
+}
+
+.image-section-container {
+  /* Column sizing - 10 columns out of 12 with 1 column offset on each side */
+  flex: 0 0 calc(83.333333% - 1.5rem);
+  margin-right: calc(1.5rem / 2);
+  margin-left: calc(1.5rem / 2);
+  
+  /* Responsive adjustments */
+  width: 100%;
+  max-width: calc(83.333333% - 1.5rem);
+  
+  /* Background image styling */
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  
+  /* Aspect ratio maintenance */
+  position: relative;
+  overflow: hidden;
+  border-radius: 0;
+}
+
+.image-section-placeholder {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .image-section {
+    padding: 2rem 0;
+  }
+  
+  .image-section-container {
+    flex: 0 0 100%;
+    margin-right: 0;
+    margin-left: 0;
+    max-width: 100%;
+  }
+}
+
+/* Tablet responsiveness */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .image-section-container {
+    flex: 0 0 calc(90% - 1.5rem);
+    margin-right: calc(1.5rem / 2);
+    margin-left: calc(1.5rem / 2);
+    max-width: calc(90% - 1.5rem);
+  }
+}
+
+/* Desktop responsiveness */
+@media (min-width: 1025px) {
+  .image-section-container {
+    flex: 0 0 calc(83.333333% - 1.5rem);
+    margin-right: calc(1.5rem / 2);
+    margin-left: calc(1.5rem / 2);
+    max-width: calc(83.333333% - 1.5rem);
+  }
+}
